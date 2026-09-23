@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etkinlik Ekle</title>
+</head>
+<body>
+
+    <header>
+        <h1>Kampüs Etkinlikleri</h1>
+    </header>
+
+    <nav>
+        <a href="index.html">Ana Sayfa</a>
+        <a href="etkinlikler.html">Etkinlikler</a>
+        <a href="etkinlik_detay.html">Detay1</a>
+        <a href="etkinlik_detay_2.html">Detay2</a>
+        <a href="etkinlik_ekle.html">Ekle</a>
+    </nav>
+
+    <main>
+        <h2>Etkinlik Ekle</h2>
+
+        <form>
+            <label for="ad">Etkinlik Adı</label>
+            <input type="text" id="ad" name="ad" required>
+
+            <label for="kategori">Kategori</label>
+            <select id="kategori" name="kategori">
+                <option value="seminer">Seminer</option>
+                <option value="atolye">Atölye</option>
+                <option value="konser">Konser</option>
+                <option value="spor">Spor</option>
+            </select>
+
+            <label for="tarih">Tarih</label>
+            <input type="date" id="tarih" name="tarih" required>
+
+            <label for="saat">Saat</label>
+            <input type="time" id="saat" name="saat" required>
+
+            <label for="yer">Yer</label>
+            <input type="text" id="yer" name="yer" required>
+
+            <label for="aciklama">Açıklama</label>
+            <textarea id="aciklama" name="aciklama"></textarea>
+
+            <button type="submit">Kaydet</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>Şeyma Ay · 2416501059 · 2026</p>
+    </footer>
+
+</body>
+</html>
