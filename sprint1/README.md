@@ -11,4 +11,4 @@ Kampüs Etkinlikleri uygulamasının HTML iskeleti. CSS ve JavaScript yok.
 - etkinlik-guncelle.html
 
 ## Canlı adres
-(Vercel'e yükledikten sonra buraya adresi ekleyeceğim)
+kampus-etkinlikleri-beta.vercel.app

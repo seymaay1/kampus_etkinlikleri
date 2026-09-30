@@ -1,0 +1,130 @@
+/* Şeyma Ay — 2416501059 */
+:root {
+  --no: 2416501059;
+  --ton: mod(var(--no), 360);
+  --renk-ana: hsl(var(--ton) 65% 38%);
+  --renk-zemin: hsl(var(--ton) 30% 97%);
+  --font: "Lucida Console", monospace;
+  --bosluk-m: 1rem;
+  --kose: 8px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: var(--renk-zemin);
+  color: #222;
+}
+
+header {
+  background: var(--renk-ana);
+  color: #fff;
+  padding: var(--bosluk-m);
+}
+
+header h1 { margin: 0; font-size: 1.4rem; }
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bosluk-m);
+  background: #fff;
+  padding: 0.5rem var(--bosluk-m);
+  border-bottom: 1px solid #ddd;
+}
+
+nav a {
+  color: var(--renk-ana);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav a:hover { text-decoration: underline; }
+
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--bosluk-m);
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+footer {
+  text-align: center;
+  padding: var(--bosluk-m);
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.kartlar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--bosluk-m);
+  margin: var(--bosluk-m) 0;
+}
+
+.kartlar article {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: var(--kose);
+  padding: var(--bosluk-m);
+}
+
+.kartlar article h2 { margin-top: 0; font-size: 1.1rem; }
+.kartlar a { color: var(--renk-ana); font-weight: bold; text-decoration: none; }
+
+.detay {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bosluk-m);
+}
+
+@media (min-width: 700px) {
+  .detay { flex-direction: row; align-items: flex-start; }
+  .detay figure { flex: 0 0 300px; margin: 0; }
+  .detay dl { flex: 1; }
+}
+
+dl { margin: 0; }
+dt { font-weight: bold; margin-top: var(--bosluk-m); }
+dd { margin: 0; }
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bosluk-m);
+  max-width: 480px;
+}
+
+label { font-weight: bold; }
+
+input, select, textarea {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: var(--kose);
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+input:invalid, select:invalid, textarea:invalid {
+  border-color: #c62828;
+}
+
+button {
+  background: var(--renk-ana);
+  color: #fff;
+  border: none;
+  padding: 0.75rem;
+  border-radius: var(--kose);
+  font-size: 1rem;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+button:hover { opacity: 0.9; }
+
+table { border-collapse: collapse; width: 100%; margin: var(--bosluk-m) 0; }
+th, td { padding: 0.5rem; text-align: left; }
+caption { font-weight: bold; margin-bottom: 0.5rem; }
