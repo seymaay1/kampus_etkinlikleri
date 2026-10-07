@@ -1,23 +1,47 @@
+https://kampus-etkinlikleri-beta.vercel.app/
+
 # Kampüs Etkinlikleri
 
-Kampüs Etkinlikleri uygulaması. Sprint 1'de HTML iskeleti, Sprint 2'de CSS ve responsive tasarım eklendi.
+Kampüsteki etkinlikleri duyurmak ve öğrencilerin etkinlik takvimini kolayca takip etmesini sağlamak için hazırlanmış çok sayfalı bir web sitesidir.
 
-## Sprint 2 - CSS ve Responsive Tasarım
-- css/numaran.css ile tüm sayfalara stil verildi
-- Etkinlikler tablo yerine kart (section > article) olarak gösteriliyor
-- Telefon, tablet ve masaüstünde responsive görünüm
-- Form alanlarında label ve hata gösterimi
+**Öğrenci:** Şeyma Ay · 2416501059
 
-## Sayfalar (sprint2/)
-- index.html
-- etkinlikler.html
-- etkinlik_detay.html
-- etkinlik_detay-2.html
-- etkinlik_ekle.html
-- etkinlik_guncelle.html
+## Sprint 3: JavaScript ve DOM
 
-## Canlı adres
-https://kampus-etkinlikleri-beta.vercel.app
+Bu sprintte sayfalar elle yazılmış HTML yerine tek bir veri dosyasından üretilmeye başlandı.
 
-## Sprint 1 (arşiv)
-sprint1/ klasöründe, CSS eklenmeden önceki hali durur.
+### Yapılanlar
+
+- Etkinlikler `js/data.js` içinde tek bir dizide tutuluyor (6 etkinlik, 4 kategori).
+- Ana sayfa ve etkinlik listesi kartları JavaScript ile üretiliyor. Ana sayfada tarihi en yakın 2 etkinlik gösteriliyor (`data-limit`).
+- Etkinlikler sayfasında arama kutusu ve kategori filtresi birlikte çalışıyor. Sonuç yoksa "bulunamadı" mesajı çıkıyor.
+- Detay sayfası adresteki `?id=` değerine göre doğru etkinliği gösteriyor. Geçersiz veya eksik id'de hata kutusu çıkıyor.
+- Ekleme formu `novalidate` ile çalışıyor. Hatalı alanların altında kırmızı mesaj, başarıda yeşil kutuda oluşan nesne görünüyor.
+- Güncelleme sayfası detaydaki "Bu etkinliği güncelle" butonuyla `?id=` alarak açılıyor ve form o etkinliğin bilgileriyle doluyor.
+
+### Dosya yapısı
+
+```
+sprint3/
+├── css/2416501059.css
+├── js/
+│   ├── data.js          # etkinlik verisi ve tarih yardımcıları
+│   ├── event_list.js    # kart üretimi, ana sayfa limiti, arama ve filtre
+│   ├── event_detail.js  # ?id= ile detay sayfası
+│   └── event_form.js    # ekleme/güncelleme formu, doğrulama, mesajlar
+├── index.html
+├── etkinlikler.html
+├── etkinlik_detay.html
+├── etkinlik_ekle.html
+└── etkinlik_guncelle.html
+```
+
+### Notlar
+
+- Veri kaydedilmez; `localStorage`, framework ve jQuery kullanılmadı. Kalıcı kayıt backend sprintlerinde gelecek.
+- Sayfalar ES modülleri (`type="module"`) kullandığı için `file://` ile açılmaz. Yerelde VS Code **Live Server** ile açılmalıdır.
+- Kontrol için örnek adresler: `etkinlik_detay.html?id=event-3` (doğru etkinlik), `etkinlik_detay.html?id=event-99` (hata kutusu).
+
+## Önceki sprintler
+
+- **Sprint 2:** HTML ve CSS ile sayfa iskeleti, kartlar, tablo ve formlar.
