@@ -160,7 +160,7 @@ figure { margin: 0; }
 }
 .alan { display: flex; flex-direction: column; gap: 0.35rem; }
 .alan-hata { color: #c62828; font-size: 0.85rem; }
-#sonuc { color: var(--renk-ana); font-weight: bold; }
+#sonuc, .sonuc { color: var(--renk-ana); font-weight: bold; }
 
 .afis {
   background: hsl(var(--ton) 45% 18%);
