@@ -1,23 +1,23 @@
 import type { CampusEvent, Category } from "../types/campus-event";
 
-export function searchEvents(list: CampusEvent[], text: string): CampusEvent[] {
-  const q = text.trim().toLocaleLowerCase("tr-TR");
-  return list.filter((e) =>
-    `${e.title} ${e.description}`.toLocaleLowerCase("tr-TR").includes(q)
+export function searchEvents(
+  events: CampusEvent[],
+  text: string
+): CampusEvent[] {
+  const aranan = text.trim().toLocaleLowerCase("tr-TR");
+  if (aranan === "") return events;
+  return events.filter((e) =>
+    [e.title, e.category, e.location, e.description]
+      .join(" ")
+      .toLocaleLowerCase("tr-TR")
+      .includes(aranan)
   );
 }
 
 export function filterByCategory(
-  list: CampusEvent[],
+  events: CampusEvent[],
   category: Category | ""
 ): CampusEvent[] {
-  if (category === "") return list;
-  return list.filter((e) => e.category === category);
-}
-
-export function findEventById(
-  list: CampusEvent[],
-  id: string
-): CampusEvent | undefined {
-  return list.find((e) => e.id === id);
+  if (category === "") return events;
+  return events.filter((e) => e.category === category);
 }

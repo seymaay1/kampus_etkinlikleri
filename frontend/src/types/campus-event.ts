@@ -1,4 +1,12 @@
-export type Category = "Seminer" | "Atölye" | "Söyleşi" | "Yarışma";
+export type Category = "Seminer" | "Atölye" | "Söyleşi" | "Konser" | "Spor";
+
+export const categories: Category[] = [
+  "Seminer",
+  "Atölye",
+  "Söyleşi",
+  "Konser",
+  "Spor",
+];
 
 export interface CampusEvent {
   id: string;
@@ -9,5 +17,17 @@ export interface CampusEvent {
   location: string;
   capacity: number;
   description: string;
-  image?: string;
 }
+
+// Form hep metin verir: capacity string, category boş olabilir, id yok
+export interface EventFormData {
+  title: string;
+  category: Category | "";
+  date: string;
+  time: string;
+  location: string;
+  capacity: string;
+  description: string;
+}
+
+export type EventFormErrors = Partial<Record<keyof EventFormData, string>>;

@@ -1,6 +1,6 @@
 import type { CampusEvent } from "../types/campus-event";
 
-export const events: CampusEvent[] = [
+export const initialEvents: CampusEvent[] = [
   {
     id: "event-1",
     title: "Kariyer Günleri 2026",
@@ -10,7 +10,6 @@ export const events: CampusEvent[] = [
     location: "A Blok Konferans Salonu",
     capacity: 100,
     description: "Mezunlarla kariyer söyleşileri ve şirket standları.",
-    image: "/afis.svg",
   },
   {
     id: "event-2",
@@ -55,7 +54,7 @@ export const events: CampusEvent[] = [
   {
     id: "event-6",
     title: "Bahar Futbol Turnuvası",
-    category: "Yarışma",
+    category: "Spor",
     date: "2026-11-17",
     time: "16:30",
     location: "Kampüs Halı Saha",
@@ -63,3 +62,10 @@ export const events: CampusEvent[] = [
     description: "Bölümler arası 8 takımlı eleme usulü turnuva.",
   },
 ];
+
+export function findEventById(
+  events: CampusEvent[],
+  id: string
+): CampusEvent | undefined {
+  return events.find((e) => e.id === id);
+}

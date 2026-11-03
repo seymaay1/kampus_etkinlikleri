@@ -1,20 +1,20 @@
 import type { Category } from "../../types/campus-event";
 
-interface EventFilterProps {
+interface Props {
   searchText: string;
-  category: Category | "";
-  categories: Category[];
   onSearchChange: (value: string) => void;
+  category: Category | "";
   onCategoryChange: (value: Category | "") => void;
+  categories: Category[];
 }
 
 function EventFilter({
   searchText,
-  category,
-  categories,
   onSearchChange,
+  category,
   onCategoryChange,
-}: EventFilterProps) {
+  categories,
+}: Props) {
   return (
     <form className="filtre" onSubmit={(e) => e.preventDefault()}>
       <div className="alan">

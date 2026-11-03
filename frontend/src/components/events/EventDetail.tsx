@@ -1,26 +1,32 @@
+import { Link } from "react-router-dom";
 import type { CampusEvent } from "../../types/campus-event";
 import { formatDate } from "../../utils/format-date";
 
-interface EventDetailProps {
+interface Props {
   event: CampusEvent;
-  onBack: () => void;
-  onEdit: (id: string) => void;
 }
 
-function EventDetail({ event, onBack, onEdit }: EventDetailProps) {
+function EventDetail({ event }: Props) {
   return (
-    <>
-      <article className="detay">
-        {event.image && (
-          <figure>
-            <img src={event.image} alt={`${event.title} afişi`} />
-            <figcaption>{event.title} afişi</figcaption>
-          </figure>
-        )}
+    <article>
+      <div className="detay">
+        <figure>
+          <div
+            className="afis"
+            role="img"
+            aria-label={`${event.title} etkinlik afişi`}
+          >
+            <strong>{event.title}</strong>
+            <span>
+              {formatDate(event.date)} · {event.location}
+            </span>
+          </div>
+          <figcaption>{event.title} afişi</figcaption>
+        </figure>
         <dl className="kunye">
           <dt>Tarih</dt>
           <dd>
-            <time dateTime={event.date}>
+            <time>
               {formatDate(event.date)}, {event.time}
             </time>
           </dd>
@@ -31,34 +37,18 @@ function EventDetail({ event, onBack, onEdit }: EventDetailProps) {
           <dt>Kontenjan</dt>
           <dd>{event.capacity} kişi</dd>
         </dl>
-      </article>
-
-      <h2>Açıklama</h2>
+      </div>
+      <h3>Açıklama</h3>
       <p>{event.description}</p>
-
       <p className="butonlar">
-        <a
-          className="buton"
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            onBack();
-          }}
-        >
+        <Link className="buton" to="/events">
           ← Listeye dön
-        </a>
-        <a
-          className="buton"
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            onEdit(event.id);
-          }}
-        >
-          Bu etkinliği güncelle
-        </a>
+        </Link>
+        <Link className="buton" to={`/admin/${event.id}/edit`}>
+          Güncelle
+        </Link>
       </p>
-    </>
+    </article>
   );
 }
 
