@@ -2,7 +2,7 @@
 
 Kampüsteki seminer, atölye, söyleşi, konser ve spor etkinliklerini listeleyen; etkinlik ekleme, güncelleme ve silme işlemlerinin yapılabildiği React uygulaması.
 
-**Canlı adres:** https://kampus-etkinlikleri-beta.vercel.app/
+**Canlı adres:** https://seymaay-frontend.vercel.app/
 
 Öğrenci: Şeyma Ay · 2416501059
 
