@@ -1,47 +1,57 @@
-https://kampus-etkinlikleri-beta.vercel.app/
-
 # Kampüs Etkinlikleri
 
-Kampüsteki etkinlikleri duyurmak ve öğrencilerin etkinlik takvimini kolayca takip etmesini sağlamak için hazırlanmış çok sayfalı bir web sitesidir.
+Kampüsteki seminer, atölye, söyleşi, konser ve spor etkinliklerini listeleyen; etkinlik ekleme, güncelleme ve silme işlemlerinin yapılabildiği React uygulaması.
 
-**Öğrenci:** Şeyma Ay · 2416501059
+**Canlı adres:** https://kampus-etkinlikleri-beta.vercel.app/
 
-## Sprint 3: JavaScript ve DOM
+Öğrenci: Şeyma Ay · 2416501059
 
-Bu sprintte sayfalar elle yazılmış HTML yerine tek bir veri dosyasından üretilmeye başlandı.
-
-### Yapılanlar
-
-- Etkinlikler `js/data.js` içinde tek bir dizide tutuluyor (6 etkinlik, 4 kategori).
-- Ana sayfa ve etkinlik listesi kartları JavaScript ile üretiliyor. Ana sayfada tarihi en yakın 2 etkinlik gösteriliyor (`data-limit`).
-- Etkinlikler sayfasında arama kutusu ve kategori filtresi birlikte çalışıyor. Sonuç yoksa "bulunamadı" mesajı çıkıyor.
-- Detay sayfası adresteki `?id=` değerine göre doğru etkinliği gösteriyor. Geçersiz veya eksik id'de hata kutusu çıkıyor.
-- Ekleme formu `novalidate` ile çalışıyor. Hatalı alanların altında kırmızı mesaj, başarıda yeşil kutuda oluşan nesne görünüyor.
-- Güncelleme sayfası detaydaki "Bu etkinliği güncelle" butonuyla `?id=` alarak açılıyor ve form o etkinliğin bilgileriyle doluyor.
-
-### Dosya yapısı
+## Kurulum
 
 ```
-sprint3/
-├── css/2416501059.css
-├── js/
-│   ├── data.js          # etkinlik verisi ve tarih yardımcıları
-│   ├── event_list.js    # kart üretimi, ana sayfa limiti, arama ve filtre
-│   ├── event_detail.js  # ?id= ile detay sayfası
-│   └── event_form.js    # ekleme/güncelleme formu, doğrulama, mesajlar
-├── index.html
-├── etkinlikler.html
-├── etkinlik_detay.html
-├── etkinlik_ekle.html
-└── etkinlik_guncelle.html
+git clone https://github.com/seymaay1/kampus_etkinlikleri.git
+cd kampus_etkinlikleri/frontend
+npm install
+npm run dev
 ```
 
-### Notlar
+Uygulama `http://localhost:5173` adresinde açılır. Yayın için derleme: `npm run build`.
 
-- Veri kaydedilmez; `localStorage`, framework ve jQuery kullanılmadı. Kalıcı kayıt backend sprintlerinde gelecek.
-- Sayfalar ES modülleri (`type="module"`) kullandığı için `file://` ile açılmaz. Yerelde VS Code **Live Server** ile açılmalıdır.
-- Kontrol için örnek adresler: `etkinlik_detay.html?id=event-3` (doğru etkinlik), `etkinlik_detay.html?id=event-99` (hata kutusu).
+## Kullanılan teknolojiler
+
+- React + TypeScript (Vite)
+- React Router (`react-router-dom`)
+- Context API (`EventsContext`)
+
+## Route listesi
+
+| Adres | Sayfa |
+|---|---|
+| `/` | HomePage |
+| `/events` | EventsPage |
+| `/events/:id` | EventDetailPage |
+| `/login` | LoginPage |
+| `/register` | RegisterPage |
+| `/forgot-password` | ForgotPasswordPage |
+| `/admin` | AdminPage |
+| `/admin/new` | AddEventPage |
+| `/admin/:id/edit` | EditEventPage |
+| `*` | NotFoundPage |
+
+## Özellikler
+
+- Etkinlik listesi, arama ve kategori filtresi
+- Etkinlik detay sayfası
+- Yönetim sayfasında etkinlik ekleme, güncelleme ve silme (silmeden önce onay)
+- Değişiklikler Context ile tüm sayfalara yansır
+- Etkinlik, giriş, kayıt ve şifremi unuttum formlarında doğrulama
+- Masaüstünde tablo, telefonda kart görünümü
+
+## Notlar
+
+- Veriler henüz sunucuya kaydedilmez; sayfa yenilenince başlangıç verisine dönülür.
+- Giriş, kayıt ve şifremi unuttum sayfaları şimdilik sadece arayüzdür.
 
 ## Önceki sprintler
 
-- **Sprint 2:** HTML ve CSS ile sayfa iskeleti, kartlar, tablo ve formlar.
+Sprint 1-4 klasörlerinde eski HTML/CSS/JS sürümleri durur.
