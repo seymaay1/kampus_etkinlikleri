@@ -1,29 +1,40 @@
 # Kampüs Etkinlikleri
 
-Kampüsteki seminer, atölye, söyleşi, konser ve spor etkinliklerini listeleyen, etkinlik ekleme, güncelleme ve silme işlemlerinin yapılabildiği React uygulaması.
+Kampüsteki seminer, atölye, söyleşi, konser ve spor etkinliklerini listeleyen; etkinlik ekleme, güncelleme ve silme işlemlerinin yapılabildiği React uygulaması ve bu uygulamaya veri sağlayacak Express REST API.
 
-**Canlı adres:** https://seymaay-frontend.vercel.app
+**Canlı adres (frontend):** https://seymaay-frontend.vercel.app
 
-Şeyma Ay · 2416501059
+Öğrenci: Şeyma Ay · 2416501059
 
-## Kurulum
+## Repo yapısı
 
 ```
-git clone <repository-adresi>
-cd frontend
+kampus_etkinlik/
+  frontend/   React + TypeScript + Vite (Sprint 6)
+  backend/    Node + Express REST API (Sprint 7)
+  sprint1/ ... sprint4/   Eski HTML/CSS/JS sürümleri
+```
+
+## Frontend (Sprint 6)
+
+### Kurulum
+
+```
+git clone https://github.com/seymaay1/kampus_etkinlikleri.git
+cd kampus_etkinlikleri/frontend
 npm install
 npm run dev
 ```
 
 Uygulama `http://localhost:5173` adresinde açılır. Yayın için derleme: `npm run build`.
 
-## Kullanılan teknolojiler
+### Kullanılan teknolojiler
 
 - React + TypeScript (Vite)
 - React Router (`react-router-dom`)
 - Context API (`EventsContext`)
 
-## Route listesi
+### Route listesi
 
 | Adres | Sayfa |
 |---|---|
@@ -38,16 +49,39 @@ Uygulama `http://localhost:5173` adresinde açılır. Yayın için derleme: `npm
 | `/admin/:id/edit` | EditEventPage |
 | `*` | NotFoundPage |
 
-## Özellikler
+### Özellikler
 
 - Etkinlik listesi, arama ve kategori filtresi
 - Etkinlik detay sayfası
 - Yönetim sayfasında etkinlik ekleme, güncelleme ve silme (silmeden önce onay)
-- Yapılan değişiklikler Context ile tüm sayfalara yansır
+- Değişiklikler Context ile tüm sayfalara yansır
 - Etkinlik, giriş, kayıt ve şifremi unuttum formlarında doğrulama
 - Masaüstünde tablo, telefonda kart görünümü
 
+## Backend (Sprint 7)
+
+`backend/` klasöründe Express ile yazılmış REST API var. Veriler şimdilik bellekte tutulur. Çalıştırma komutları, PORT değişkeni ve REST sözleşmesi için `backend/README.md` dosyasına bakın.
+
+```
+cd backend
+npm install
+Copy-Item .env.example .env
+npm run dev
+```
+
+API `http://localhost:3000` adresinde çalışır.
+
+| Method | Endpoint | Açıklama |
+|---|---|---|
+| GET | `/health` | Sunucu durumu |
+| GET | `/events` | Etkinlik listesi (`?category=` ile filtre) |
+| GET | `/events/:id` | Tek etkinlik (yoksa 404) |
+| POST | `/events` | Yeni etkinlik (eksik veri 400, başarılı 201) |
+
+Postman koleksiyonu: `backend/requests/kampus-api.json`
+
 ## Notlar
 
-- Veriler henüz bir sunucuya kaydedilmez; sayfa yenilenince başlangıç verisine dönülür.
+- Frontend verileri henüz backend'e bağlı değildir (Sprint 11'de bağlanacak); sayfa yenilenince başlangıç verisine dönülür.
 - Giriş, kayıt ve şifremi unuttum sayfaları şimdilik sadece arayüzdür.
+- `.env` dosyası GitHub'a gönderilmez, örnek için `backend/.env.example` kullanılır.
