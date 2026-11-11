@@ -26,6 +26,7 @@ npm install
 npm run dev
 ```
 
+<<<<<<< HEAD
 Uygulama `http://localhost:5173` adresinde açılır. Yayın için derleme: `npm run build`.
 
 ### Kullanılan teknolojiler
@@ -85,3 +86,6 @@ Postman koleksiyonu: `backend/requests/kampus-api.json`
 - Frontend verileri henüz backend'e bağlı değildir (Sprint 11'de bağlanacak); sayfa yenilenince başlangıç verisine dönülür.
 - Giriş, kayıt ve şifremi unuttum sayfaları şimdilik sadece arayüzdür.
 - `.env` dosyası GitHub'a gönderilmez, örnek için `backend/.env.example` kullanılır.
+=======
+Sprint 1-4 klasörlerinde eski HTML/CSS/JS sürümleri durur.
+>>>>>>> d34567cff40ba7339c7b2339cac6636007b2d8cc
