@@ -113,3 +113,22 @@ backend/
   package.json
 ```
 ```
+## MongoDB (Sprint 8)
+
+Etkinlikler MongoDB Atlas'ta (Mongoose ile) saklanır.
+
+| Değişken | Açıklama |
+|---|---|
+| PORT | Sunucu portu (3000) |
+| MONGODB_URI | MongoDB bağlantı adresi (sonu `/kampus`) |
+
+`.env` GitHub'a gönderilmez; `.env.example` dosyasını `.env` olarak kopyalayıp `MONGODB_URI` değerini kendi veritabanınla doldur.
+
+```
+cd backend
+npm install
+npm run seed   # 6 örnek etkinliği veritabanına ekler (her çalışmada önce siler)
+npm run dev
+```
+
+Not: Yanıtlardaki `id` artık MongoDB `_id` değeridir (`GET /events/:id` için geçersiz ya da olmayan id 404 döner).
