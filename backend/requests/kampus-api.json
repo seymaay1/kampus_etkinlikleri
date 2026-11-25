@@ -40,11 +40,11 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "http://localhost:3000/events/6afd477d0e0b8abc807de243",
+          "raw": "http://localhost:3000/events/6b06855f20cf6c53fa94cfaf",
           "protocol": "http",
           "host": ["localhost"],
           "port": "3000",
-          "path": ["events", "6afd477d0e0b8abc807de243"]
+          "path": ["events", "6b06855f20cf6c53fa94cfaf"]
         }
       },
       "response": []

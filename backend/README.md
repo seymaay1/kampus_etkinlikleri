@@ -1,6 +1,6 @@
 # Kampüs Etkinlikleri API
 
-Express ile yazılmış REST API. Veriler şimdilik bellekte tutulur; sunucu yeniden başlayınca POST ile eklenenler kaybolur.
+Express ve Mongoose ile yazılmış REST API. Etkinlikler MongoDB Atlas'ta saklanır.
 
 Öğrenci: Şeyma Ay · 2416501059
 
@@ -10,67 +10,60 @@ Express ile yazılmış REST API. Veriler şimdilik bellekte tutulur; sunucu yen
 cd backend
 npm install
 Copy-Item .env.example .env
+npm run seed
 npm run dev
 ```
 
 macOS/Linux'ta `.env` oluşturmak için: `cp .env.example .env`
 
-API `http://localhost:3000` adresinde çalışır.
+API `http://localhost:3000` adresinde çalışır. `npm run seed` 6 örnek etkinliği veritabanına ekler (her çalışmada önce siler).
 
 ## Ortam değişkenleri
 
-| Değişken | Açıklama | Varsayılan |
-|---|---|---|
-| PORT | Sunucunun dinleyeceği port | 3000 |
+| Değişken | Açıklama |
+|---|---|
+| PORT | Sunucu portu (3000) |
+| MONGODB_URI | MongoDB bağlantı adresi (sonu `/kampus`) |
 
-`.env` dosyası GitHub'a gönderilmez. Gerekli değişkenler `.env.example` dosyasında listelenir.
+`.env` GitHub'a gönderilmez. `.env.example` dosyasını `.env` olarak kopyalayıp `MONGODB_URI` değerini kendi veritabanınla doldur.
 
 ## REST sözleşmesi
 
 | Method | Endpoint | Amaç | Başarılı | Hata | Durum |
 |---|---|---|---|---|---|
-| GET | /health | Sunucu ayakta mı | 200 | - | Bu sprint |
-| GET | /events | Listeyi getir (`?category=Atölye` ile filtre) | 200 | - | Bu sprint |
-| GET | /events/:id | Tek etkinlik | 200 | 404 | Bu sprint |
-| POST | /events | Yeni etkinlik | 201 | 400 | Bu sprint |
-| PATCH | /events/:id | Güncelle | 200 | 400, 404 | Sprint 9 |
-| DELETE | /events/:id | Sil | 204 | 404 | Sprint 9 |
+| GET | /health | Sunucu ayakta mı | 200 | - | Çalışıyor |
+| GET | /events | Liste (`?search=git`, `?category=Atölye`) | 200 | - | Çalışıyor |
+| GET | /events/upcoming | Bugün ve sonrası, en yakın önce | 200 | - | Çalışıyor |
+| GET | /events/:id | Tek etkinlik | 200 | 404 | Çalışıyor |
+| POST | /events | Yeni etkinlik | 201 | 400 | Çalışıyor |
+| PATCH | /events/:id | Gönderilen alanları günceller | 200 | 400, 404 | Çalışıyor |
+| DELETE | /events/:id | Siler (gövde yok) | 204 | 404 | Çalışıyor |
+
+Tarih her yerde `GG-AA-YYYY` biçimindedir (örn. `15-10-2026`). Geçersiz ya da olmayan id her yerde 404 döner. `?search` başlıkta büyük/küçük harf fark etmeden arar.
 
 ## Status code'lar
 
 - 200 tamam
 - 201 oluşturuldu
-- 204 içerik yok
+- 204 içerik yok (gövde boş)
 - 400 eksik veya yanlış veri
 - 404 bulunamadı
 
 ## Hata biçimi
 
-Bütün hatalar aynı biçimde döner:
-
 ```json
 { "error": { "message": "Event not found" } }
 ```
 
-## GET /health yanıtı
-
-```json
-{
-  "status": "ok",
-  "time": "2026-11-11T08:47:26.826Z",
-  "student": "2416501059"
-}
-```
-
 ## POST /events gövdesi
 
-`title`, `category` ve `date` zorunludur. Diğer alanlar isteğe bağlıdır.
+`title`, `category` ve `date` zorunludur.
 
 ```json
 {
   "title": "Git Atölyesi",
   "category": "Atölye",
-  "date": "2026-12-01",
+  "date": "01-12-2026",
   "capacity": 30,
   "time": "14:00",
   "location": "Bilgisayar Laboratuvarı 1",
@@ -78,57 +71,33 @@ Bütün hatalar aynı biçimde döner:
 }
 ```
 
-Başarılıysa 201 ve oluşturulan kayıt (yeni `id` ile) döner. Zorunlu alan eksikse 400 döner:
+Kategori: Seminer, Atölye, Söyleşi, Konser, Spor. Kayıtlarda `id` yerine MongoDB `_id` döner.
+
+## PATCH /events/:id
+
+Yalnızca gönderilen alanlar değişir. Boş gövde 400, `_id`, `createdAt`, `updatedAt` değiştirilemez (400).
 
 ```json
-{ "error": { "message": "title, category and date are required" } }
+{ "capacity": 55 }
 ```
 
 ## Postman koleksiyonu
 
-6 istek `requests/kampus-api.json` dosyasındadır (Postman'de Import ile açılır):
-
-| # | İstek | Beklenen |
-|---|---|---|
-| 1 | GET /health | 200 |
-| 2 | GET /events | 200, 6 kayıt |
-| 3 | GET /events/event-2 | 200 |
-| 4 | GET /events/yok | 404 |
-| 5 | POST /events (tam gövde) | 201 |
-| 6 | POST /events (sadece title) | 400 |
+- `requests/kampus-api.json`: Sprint 8'in 6 isteği
+- `requests/run-results.json`: Sprint 9 hazır koleksiyonunun sonucu (18 istek, 45 test, 0 hata)
 
 ## Klasör yapısı
 
 ```
 backend/
   src/
-    app.js                      Express uygulaması, middleware, route'lar
-    server.js                   .env'i okur, portu dinler
-    routes/event-routes.js      Hangi adres hangi fonksiyona gider
-    controllers/event-controller.js   İsteği işler, yanıtı döndürür
-    data/events.js              Bellek içi etkinlik dizisi
-  requests/kampus-api.json      Postman koleksiyonu
-  .env.example
-  .gitignore
-  package.json
+    config/database.js          MongoDB bağlantısı
+    models/event-model.js       Event şeması
+    utils/date.js               GG-AA-YYYY dönüşümleri
+    controllers/event-controller.js
+    routes/event-routes.js
+    data/seed-events.js         Örnek veri
+    seed.js  app.js  server.js
+  requests/
+  .env.example  .gitignore  package.json
 ```
-```
-## MongoDB (Sprint 8)
-
-Etkinlikler MongoDB Atlas'ta (Mongoose ile) saklanır.
-
-| Değişken | Açıklama |
-|---|---|
-| PORT | Sunucu portu (3000) |
-| MONGODB_URI | MongoDB bağlantı adresi (sonu `/kampus`) |
-
-`.env` GitHub'a gönderilmez; `.env.example` dosyasını `.env` olarak kopyalayıp `MONGODB_URI` değerini kendi veritabanınla doldur.
-
-```
-cd backend
-npm install
-npm run seed   # 6 örnek etkinliği veritabanına ekler (her çalışmada önce siler)
-npm run dev
-```
-
-Not: Yanıtlardaki `id` artık MongoDB `_id` değeridir (`GET /events/:id` için geçersiz ya da olmayan id 404 döner).
