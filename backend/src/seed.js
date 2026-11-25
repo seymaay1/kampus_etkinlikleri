@@ -1,4 +1,6 @@
 import "dotenv/config";
+import dns from "node:dns";
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
 import mongoose from "mongoose";
 import { connectDatabase } from "./config/database.js";
 import { Event } from "./models/event-model.js";
